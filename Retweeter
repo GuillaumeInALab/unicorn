@@ -1,0 +1,27 @@
+import tweepy
+
+# Enter your Twitter API keys and secrets
+consumer_key = 'YOUR_CONSUMER_KEY'
+consumer_secret = 'YOUR_CONSUMER_SECRET'
+access_token = 'YOUR_ACCESS_TOKEN'
+access_token_secret = 'YOUR_ACCESS_TOKEN_SECRET'
+
+# Authenticate the bot using the Twitter API
+auth = tweepy.OAuth1UserHandler(
+    consumer_key,
+    consumer_secret,
+    access_token,
+    access_token_secret
+)
+
+api = tweepy.API(auth)
+
+# Specify the account whose tweets you want to retweet
+account_screen_name = 'USERNAME'
+
+# Search for tweets from the specified account
+tweets = api.user_timeline(screen_name=account_screen_name, count=100)
+
+# Retweet the tweets
+for tweet in tweets:
+    api.retweet(tweet.id)
